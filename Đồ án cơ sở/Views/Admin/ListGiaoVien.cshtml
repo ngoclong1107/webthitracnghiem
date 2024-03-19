@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.GiaoVien>
+
+@{
+    ViewBag.Title = "ListGiaoVien";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách giáo viên</h2>
+@using (Html.BeginForm("ListGiaoVien", "Admin", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label>Môn Học:</label>@Html.DropDownList("MaMH", null, htmlAttributes: new { @class = "form-control" }) <label></label>
+        <label>Tên giao vien:</label>
+        <input type="Text" class="form-control mx-sm-3" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên giáo viên hoặc mã giáo viên cần tìm">
+        <input type="submit" class="btn btn-danger" value="Tìm giáo viên ">
+    </div>
+    <a href="@Url.Action("ListGiaovien")">Quay lại</a> 
+    <hr />
+}
+<button type="button" onclick="location.href='@Url.Action("ThemGiaoVien")'" class="btn btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i> Thêm giáo viên
+</button>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaGV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QueQuan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonHoc.TenMH)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaGV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QueQuan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonHoc.TenMH)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("SuaThongTinGv", new {id=item.MaGV})'" class="btn btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button> |
+                <button type="button" onclick="location.href='@Url.Action("ThongTinGiaoVien", new {id=item.MaGV})'" class="btn btn-primary">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button> |
+                <button type="button" onclick="location.href='@Url.Action("XoaThongTingv", new {id=item.MaGV})'" class="btn btn-primary">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>

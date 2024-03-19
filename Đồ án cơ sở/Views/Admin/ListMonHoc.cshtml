@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.MonHoc>
+
+@{
+    ViewBag.Title = "ListMonHoc";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách môn học</h2>
+
+<p>
+    @Html.ActionLink("Thêm môn học", "ThemMonHoc")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenMH)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenMH)
+        </td>
+        <td>
+            @Html.ActionLink("Xóa", "XoaMonHoc", new { id=item.MaMH })
+        </td>
+    </tr>
+}
+
+</table>

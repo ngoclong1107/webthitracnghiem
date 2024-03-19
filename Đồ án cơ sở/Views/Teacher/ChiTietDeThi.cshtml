@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.DeThi_CauHoi>
+
+@{
+    ViewBag.Title = "ChiTietDeThi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Đồ_án_cơ_sở.Models.DeThi dethi = (Đồ_án_cơ_sở.Models.DeThi)Session["DeThi"];
+    Đồ_án_cơ_sở.Models.ThiTNEntities1 db = new Đồ_án_cơ_sở.Models.ThiTNEntities1();
+}
+
+<h2>ChiTietDeThi</h2>
+<h3>@db.DeThi_CauHoi.Where(m => m.MaDT == dethi.MaDT).Count()/@dethi.SoLuongCauHoi</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.CauHoi1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.CauA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.CauB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.CauC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.CauD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.DapAn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.Hinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi.MonHoc.TenMH)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.CauHoi1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.CauA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.CauB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.CauC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.CauD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.DapAn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.Hinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi.MonHoc.TenMH)
+            </td>
+            <td>
+                @if (item.isShowGoing)
+                {
+                    <button data-idmach="@item.MaCH" data-idmadt="@item.MaDT" class="btn btn-success btn-sm js-tongle-attendance">Them Cau Hoi</button>
+                }
+                else
+                {
+                    <button data-idmach="@item.MaCH" data-idmadt="@item.MaDT" class="btn btn-danger btn-sm js-tongle-attendance">Xoa Cau Hoi</button>
+                }
+            </td>
+        </tr>
+    }
+    <button type="button" onclick="location.href='@Url.Action("ChonCauHoi",new {id=dethi.MaDT})'" class="btn btn-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i> Them Cau Hoi
+    </button>
+</table>
+<script>
+    $(document).ready(function () {
+        $('.js-tongle-attendance').click(function (e) {
+            var button = $(e.target);
+            var courseId = parseInt(button.attr("data-idmach"));
+            var maDtId = parseInt(button.attr("data-idmadt"));
+            var url = '';
+            var text = '';
+            var successMessage = '';
+
+            if (button.hasClass("btn-success")) {
+                url = `/api/cauhois/addcauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Xoa Cau Hoi";
+                successMessage = "Thêm câu hỏi thành công!";
+            } else if (button.hasClass("btn-danger")) {
+                url = `/api/cauhois/deletecauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Thêm Cau Hoi";
+                successMessage = "Xóa câu hỏi thành công!";
+            }
+
+            $.post({
+                url: url,
+                data: { id: courseId, madt: maDtId },
+                success: function () {
+                    alert(successMessage);
+                    button
+                        .toggleClass("btn-success btn-danger")
+                        .text(text);
+                },
+                error: function () {
+                    alert("Thất bại!");
+                }
+            });
+        });
+    });
+
+</script>

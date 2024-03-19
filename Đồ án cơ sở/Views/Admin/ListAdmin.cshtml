@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.GiaoVien>
+
+@{
+    ViewBag.Title = "ListAdmin";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách Admin</h2>
+
+<button type="button" onclick="location.href='@Url.Action("ThemAdmin")'" class="btn btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i> Thêm Admin
+</button>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QueQuan)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoTen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GioiTinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QueQuan)
+        </td>
+        <td>
+            <button type="button" onclick="location.href='@Url.Action("SuaThongTinAdmin", new {id=item.MaGV})'" class="btn btn-primary">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button> |
+            <button type="button" onclick="location.href='@Url.Action("ThongTinAdmin", new {id=item.MaGV})'" class="btn btn-primary">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+            </button> |
+            <button type="button" onclick="location.href='@Url.Action("XoaThongTinAdmin", new {id=item.MaGV})'" class="btn btn-primary">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </td>
+    </tr>
+}
+
+</table>

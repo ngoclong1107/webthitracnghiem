@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.DeThi>
+
+@{
+    ViewBag.Title = "ListDeThi";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách đề thi</h2>
+
+<button type="button" onclick="location.href='@Url.Action("ThemDeThi")'" class="btn btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i> Tạo đề thi
+</button>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayThi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiGianThi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuongCauHoi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonHoc.TenMH)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayThi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThoiGianThi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongCauHoi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonHoc.TenMH)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("ListBaiLam", new {id=item.MaDT})'" class="btn btn-primary">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+

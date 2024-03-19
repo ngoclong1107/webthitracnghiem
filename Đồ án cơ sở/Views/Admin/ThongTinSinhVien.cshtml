@@ -1,0 +1,44 @@
+﻿@model Đồ_án_cơ_sở.Models.SinhVien
+
+@{
+    ViewBag.Title = "ThongTinSinhVien";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Thông tin sinh viên</h2>
+
+<div>
+    <h4>Sinh viên</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySInh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySInh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+    </dl>
+</div>
+<p>
+    <button type="button" onclick="location.href='@Url.Action("SuaThongTin", new {id=Model.MSSV})'" class="btn btn-primary">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    </button> |
+    @Html.ActionLink("Trở về trang chủ", "Index")
+</p>

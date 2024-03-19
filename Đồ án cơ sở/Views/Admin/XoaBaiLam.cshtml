@@ -1,0 +1,57 @@
+﻿@model Đồ_án_cơ_sở.Models.Diem
+
+@{
+    ViewBag.Title = "XoaBaiLam";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Xóa bài làm</h2>
+
+<h3>Bạn có chắc chắn muốn xóa không?</h3>
+<div>
+    <h4>Điểm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Diem1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diem1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoiGianLam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoiGianLam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeThi.MaDT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeThi.MaDT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SinhVien.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SinhVien.HoTen)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang chủ", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.CauHoi>
+
+@{
+    ViewBag.Title = "ChonCauHoi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Đồ_án_cơ_sở.Models.DeThi dethi = (Đồ_án_cơ_sở.Models.DeThi)Session["DeThi"];
+    Đồ_án_cơ_sở.Models.ThiTNEntities1 db = new Đồ_án_cơ_sở.Models.ThiTNEntities1();
+}
+
+<h2>Chọn câu hỏi</h2>
+@using (Html.BeginForm("Upload", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{<table> <tr> <td> <label for="UploadedFile">Tên tệp:</label> </td> <td> <input type="file" name="UploadedFile" /> </td> </tr> <tr> <td colspan="2"> <input type="submit" name="Submit" value="Submit" /> </td> </tr> </table>
+}
+@if (!String.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <div class="alert alert-success">@ViewBag.ThongBao</div>
+
+}
+<h3>@db.DeThi_CauHoi.Where(m=>m.MaDT==dethi.MaDT).Count()/@dethi.SoLuongCauHoi</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CauHoi1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CauD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DapAn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonHoc.TenMH)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauHoi1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CauD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DapAn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonHoc.TenMH)
+            </td>
+            <td>
+                <button data-idmach="@item.MaCH" data-idmadt="@dethi.MaDT" class="btn btn-success btn-sm js-tongle-attendance">Them Cau Hoi</button>
+            </td>
+        </tr>
+    }
+</table>
+<a href="@Url.Action("Index", "Teacher")">Lưu Đề Thi</a>
+<script>
+    $(document).ready(function () {
+        $('.js-tongle-attendance').click(function (e) {
+            var button = $(e.target);
+            var courseId = parseInt(button.attr("data-idmach"));
+            var maDtId = parseInt(button.attr("data-idmadt"));
+            var url = '';
+            var text = '';
+            var successMessage = '';
+
+            if (button.hasClass("btn-success")) {
+                url = `/api/cauhois/addcauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Xoa Cau Hoi";
+                successMessage = "Thêm câu hỏi thành công!";
+            } else if (button.hasClass("btn-danger")) {
+                url = `/api/cauhois/deletecauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Thêm Cau Hoi";
+                successMessage = "Xóa câu hỏi thành công!";
+            }
+
+            $.post({
+                url: url,
+                data: { id: courseId, madt: maDtId },
+                success: function () {
+                    alert(successMessage);
+                    button
+                        .toggleClass("btn-success btn-danger")
+                        .text(text);
+                },
+                error: function () {
+                    alert("Đã đủ số lượng câu hỏi");
+                }
+            });
+        });
+    });
+
+</script>

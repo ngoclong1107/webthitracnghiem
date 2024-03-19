@@ -1,0 +1,49 @@
+﻿@model Đồ_án_cơ_sở.Models.SinhVien
+
+@{
+    ViewBag.Title = "XoaThongTin";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Xóa thông tin</h2>
+
+<h3>Bạn chắc chắn muốn xóa không?</h3>
+<div>
+    <h4>Sinh viên</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySInh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySInh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang chủ", "Index")
+        </div>
+    }
+</div>

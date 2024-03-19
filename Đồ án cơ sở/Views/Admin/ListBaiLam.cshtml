@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.Diem>
+
+@{
+    ViewBag.Title = "ListBaiLam";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách bài làm</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Diem1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiGianLam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeThi.MaDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SinhVien.HoTen)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diem1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoiGianLam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeThi.MaDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SinhVien.HoTen)
+        </td>
+        <td>
+            @Html.ActionLink("Chi tiết bài thi", "ChiTietBaiThi", new { id=item.MaDT,mssv=item.MSSV }) |
+            @Html.ActionLink("Xóa bài làm", "XoaBaiLam", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

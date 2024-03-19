@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.DeThi_SInhVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!String.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <div class="alert alert-success">@ViewBag.ThongBao</div>
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DeThi.NgayThi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeThi.ThoiGianThi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeThi.SoLuongCauHoi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.DeThi.NgayThi.Value.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeThi.ThoiGianThi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeThi.SoLuongCauHoi)
+            </td>
+            <td>
+                @if (item.DeThi.NgayThi == DateTime.Today)
+                {
+                    <a href="@Url.Action("VaoThi",new { id=item.MaDT })">Làm bài thi</a>
+                } @if (item.DeThi.NgayThi < DateTime.Now)
+                {
+                    <a href="@Url.Action("PreviewTest",new { id=item.MaDT })">Xem chi tiết đề thi</a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

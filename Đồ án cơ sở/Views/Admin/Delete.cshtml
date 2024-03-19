@@ -1,0 +1,92 @@
+﻿@model Đồ_án_cơ_sở.Models.CauHoi
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Xóa</h2>
+
+<h3>Bạn chắc chắn muốn xóa không?</h3>
+<div>
+    <h4>Câu hỏi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CauHoi1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CauHoi1)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonHoc.TenMH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonHoc.TenMH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </dt>
+
+        <dd>
+            <img src="@Model.Hinh" width="150px" height="200px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CauA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CauA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CauB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CauB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CauC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CauC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CauD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CauD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DapAn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DapAn)
+        </dd>
+
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang chủ", "Index")
+        </div>
+    }
+</div>

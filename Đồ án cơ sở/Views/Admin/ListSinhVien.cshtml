@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.SinhVien>
+
+@{
+    ViewBag.Title = "ListSinhVien";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách sinh viên</h2>
+
+<button type="button" onclick="location.href='@Url.Action("ThemSinhVien")'" class="btn btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i> Thêm sinh viên
+</button>
+@using (Html.BeginForm("ListSinhVien", "Admin", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label>Tên sinh vien:</label>
+        <input type="Text" class="form-control mx-sm-3" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sinh viên hoặc MSSV cần tìm">
+        <input type="button" class="btn btn-danger" value="Tìm sinh vien">
+    </div>
+    <hr/>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MSSV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySInh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MSSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @item.NgaySInh.Value.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("SuaThongTin", new {id=item.MSSV})'" class="btn btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button> |
+                <button type="button" onclick="location.href='@Url.Action("ThongTinSinhVien", new {id=item.MSSV})'" class="btn btn-primary">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button> |
+                <button type="button" onclick="location.href='@Url.Action("XoaThongTin", new {id=item.MSSV})'" class="btn btn-primary">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,57 @@
+﻿@model Đồ_án_cơ_sở.Models.DeThi
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa</h2>
+
+<h3>Bạn chắc chắn muốn xóa không?</h3>
+<div>
+    <h4>Đề thi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayThi)
+        </dt>
+
+        <dd>
+            @Model.NgayThi.Value.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoiGianThi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoiGianThi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuongCauHoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongCauHoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaMH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaMH)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang chủ", "Index")
+        </div>
+    }
+</div>

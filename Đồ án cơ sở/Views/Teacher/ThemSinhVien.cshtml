@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Đồ_án_cơ_sở.Models.SinhVien>
+
+@{
+    ViewBag.Title = "ThemSinhVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Đồ_án_cơ_sở.Models.DeThi dethi = (Đồ_án_cơ_sở.Models.DeThi)Session["DeThi"];
+}
+
+<h2>Thêm sinh viên</h2>
+
+@using (Html.BeginForm("Uploadsv", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{<table> <tr> <td> File: </td> <td> <input type="file" name="UploadedFile" /> </td> </tr> <tr> <td colspan="2"> <input type="submit" name="Submit" value="Submit" /> </td> </tr> </table>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySInh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DTdanglam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quyen.TenQuyen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenDangNhap)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @item.NgaySInh.Value.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DTdanglam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quyen.TenQuyen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaiKhoan.TenDangNhap)
+            </td>
+            <td>
+                <button data-idmasv="@item.MSSV" data-idmadt="@dethi.MaDT" class="btn btn-success btn-sm js-tongle-attendance">Thêm sinh viên</button>
+            </td>
+        </tr>
+    }
+</table>
+<a href="@Url.Action("Index", "Teacher")">Lưu đề thi</a>
+<script>
+    $(document).ready(function () {
+        $('.js-tongle-attendance').click(function (e) {
+            var button = $(e.target);
+            var courseId = String(button.attr("data-idmasv"));
+            var maDtId = parseInt(button.attr("data-idmadt"));
+            var url = '';
+            var text = '';
+            var successMessage = '';
+
+            if (button.hasClass("btn-success")) {
+                url = `/api/sinhviens/addcauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Xoa Sinh Vien";
+                successMessage = "Thêm sinh vien thành công!";
+            } else if (button.hasClass("btn-danger")) {
+                url = `/api/sinhviens/deletecauhoi?id=${courseId}&madt=${maDtId}`;
+                text = "Thêm Sinh Vien";
+                successMessage = "Xóa sinh vien thành công!";
+            }
+
+            $.post({
+                url: url,
+                data: { id: courseId, madt: maDtId },
+                success: function () {
+                    alert(successMessage);
+                    button
+                        .toggleClass("btn-success btn-danger")
+                        .text(text);
+                },
+                error: function () {
+                    alert("Thất bại!");
+                }
+            });
+        });
+    });
+</script>

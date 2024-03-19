@@ -1,0 +1,153 @@
+﻿@using Đồ_án_cơ_sở.Models;
+
+@{
+    var list = Model as List<StudentQuestViewModel>;
+    ViewBag.Title = "Chi Tiết Bài Thi " + list.First().DeThi.MaDT;
+    var score = ViewBag.score as Diem;
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+</div>
+<div class="content row col s12 reset-margin" style="padding:0;">
+    <span class="title">Điểm: <b style="color:red; font-size:20px;">@score.Diem1</b></span>
+    <hr />
+    @{
+        int x = 1;
+        foreach (var item in list)
+        {
+            <div id="quest-@x" class="item-quest">
+                <div class="quest-title">Câu @x :</div>
+                <div class="quest-content">
+                    <span>@item.CauHoi.CauHoi1</span>
+                </div>
+                <div class="quest-content">
+                    <span>@item.CauHoi.Hinh</span>
+                </div>
+                <div class="quest-answer">
+                    <p>
+                        <label>
+                            @if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauA.Trim()) && item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                            {
+                                <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                <span style="color:green">@item.BaiLam.CauA</span>
+                            }
+                            else
+                            {
+                                if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauA.Trim()) && !item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                {
+                                    <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                    <span style="color:red">@item.BaiLam.CauA</span>
+                                }
+                                else
+                                {
+                                    if (item.BaiLam.CauA.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                        <span style="color:green">@item.BaiLam.CauA</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" disabled />
+                                        <span>@item.BaiLam.CauA</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauB.Trim()) && item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                            {
+                                <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                <span style="color:green">@item.BaiLam.CauB</span>
+                            }
+                            else
+                            {
+                                if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauB.Trim()) && !item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                {
+                                    <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                    <span style="color:red">@item.BaiLam.CauB</span>
+                                }
+                                else
+                                {
+                                    if (item.BaiLam.CauB.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                        <span style="color:green">@item.BaiLam.CauB</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" disabled />
+                                        <span>@item.BaiLam.CauB</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauC.Trim()) && item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                            {
+                                <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                <span style="color:green">@item.BaiLam.CauC</span>
+                            }
+                            else
+                            {
+                                if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauC.Trim()) && !item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                {
+                                    <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                    <span style="color:red">@item.BaiLam.CauC</span>
+                                }
+                                else
+                                {
+                                    if (item.BaiLam.CauC.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                        <span style="color:green">@item.BaiLam.CauC</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" disabled />
+                                        <span>@item.BaiLam.CauC</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauD.Trim()) && item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                            {
+                                <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                <span style="color:green">@item.BaiLam.CauD</span>
+                            }
+                            else
+                            {
+                                if (item.BaiLam.DapAn != null && item.BaiLam.DapAn.Trim().Equals(item.BaiLam.CauD.Trim()) && !item.BaiLam.DapAn.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                {
+                                    <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                    <span style="color:red">@item.BaiLam.CauD</span>
+                                }
+                                else
+                                {
+                                    if (item.BaiLam.CauD.Trim().Equals(item.CauHoi.DapAn.Trim()))
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" checked disabled />
+                                        <span style="color:green">@item.BaiLam.CauD</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.CauHoi.MaCH" type="radio" disabled />
+                                        <span>@item.BaiLam.CauD</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                </div>
+            </div>
+            x = x + 1;
+        }
+    }
+</div>
